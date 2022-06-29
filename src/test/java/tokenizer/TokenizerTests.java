@@ -8,21 +8,20 @@ public class TokenizerTests {
   @Test
   void testNextToken() {
     Tokenizer tokenizer = new Tokenizer("+{}()");
-    TokenType tokenType = tokenizer.nextToken();
+    Token token = tokenizer.nextToken();
     tokenizer.readChar();
-    Assert.assertEquals(tokenType, TokenType.PLUS);
-    tokenType = tokenizer.nextToken();
+    Assert.assertEquals(token, new Token(TokenType.PLUS, "+"));
+    token = tokenizer.nextToken();
     tokenizer.readChar();
-    Assert.assertEquals(tokenType, TokenType.LBRACE);
-    tokenType = tokenizer.nextToken();
+    Assert.assertEquals(token, new Token(TokenType.LBRACE, "{"));
+    token = tokenizer.nextToken();
     tokenizer.readChar();
-    Assert.assertEquals(tokenType, TokenType.RBRACE);
-    tokenType = tokenizer.nextToken();
+    Assert.assertEquals(token, new Token(TokenType.RBRACE, "}"));
+    token = tokenizer.nextToken();
     tokenizer.readChar();
-    Assert.assertEquals(tokenType, TokenType.LPAREN);
-    tokenType = tokenizer.nextToken();
+    Assert.assertEquals(token, new Token(TokenType.LPAREN, "("));
+    token = tokenizer.nextToken();
     tokenizer.readChar();
-    Assert.assertEquals(tokenType, TokenType.RPAREN);
+    Assert.assertEquals(token, new Token(TokenType.RPAREN, ")"));
   }
-
 }

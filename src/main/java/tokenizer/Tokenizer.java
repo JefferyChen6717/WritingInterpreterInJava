@@ -22,9 +22,7 @@ public class Tokenizer {
     readChar();
   }
 
-  /**
-   * assign next char to ch
-   */
+  /** assign next char to ch */
   public void readChar() {
     if (readPosition >= input.length()) {
       ch = 0;
@@ -37,30 +35,43 @@ public class Tokenizer {
 
   /**
    * evaluate TokenType by ch
+   *
    * @return TokenType
    */
-  public TokenType nextToken() {
-    return switch (ch) {
-      case '=' -> TokenType.ASSIGN;
-      case ';' -> TokenType.SEMICOLON;
-      case '(' -> TokenType.LPAREN;
-      case ')' -> TokenType.RPAREN;
-      case ',' -> TokenType.COMMA;
-      case '+' -> TokenType.PLUS;
-      case '{' -> TokenType.LBRACE;
-      case '}' -> TokenType.RBRACE;
-      case 0 -> TokenType.EOF;
-      default -> TokenType.ILLEGAL;
-    };
+  public Token nextToken() {
+
+    Token token;
+    switch (ch) {
+      case '=':
+        return new Token(TokenType.ASSIGN, String.valueOf(ch));
+      case ';':
+        return new Token(TokenType.SEMICOLON, String.valueOf(ch));
+      case '(':
+        return new Token(TokenType.LPAREN, String.valueOf(ch));
+      case ')':
+        return new Token(TokenType.RPAREN, String.valueOf(ch));
+      case ',':
+        return new Token(TokenType.COMMA, String.valueOf(ch));
+      case '+':
+        return new Token(TokenType.PLUS, String.valueOf(ch));
+      case '{':
+        return new Token(TokenType.LBRACE, String.valueOf(ch));
+      case '}':
+        return new Token(TokenType.RBRACE, String.valueOf(ch));
+      case 0:
+        return new Token(TokenType.EOF, String.valueOf(ch));
+      default:
+        return isIdentifierBeginChar(ch)
+            ? new Token(TokenType.ITENT, readIdentifier())
+            : new Token(TokenType.ILLEGAL, "");
+    }
   }
 
-  /**
-   * generate a new token
-   * @param tokenType
-   * @param ch
-   * @return new token
-   */
-  public Token newToken(TokenType tokenType, char ch) {
-    return new Token(tokenType, String.valueOf(ch));
+  public String readIdentifier() {
+    return null;
+  }
+
+  private boolean isIdentifierBeginChar(char c) {
+    return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_';
   }
 }
