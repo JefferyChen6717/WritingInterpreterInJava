@@ -1,8 +1,10 @@
 package tokenizer;
 
+import tokenizer.TokenDataStructure.TokenType;
+
 public class Token {
 
-  TokenType tokenType;
+  TokenDataStructure.TokenType tokenType;
 
   String literal;
 
