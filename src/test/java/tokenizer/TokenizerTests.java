@@ -30,7 +30,8 @@ public class TokenizerTests {
     }
 
     tokenizer = new Tokenizer("let var = 5");
-    tokenTypes = List.of(TokenType.LET, TokenType.ITENT, TokenType.ASSIGN, TokenType.INT, TokenType.EOF);
+    tokenTypes =
+        List.of(TokenType.LET, TokenType.ITENT, TokenType.ASSIGN, TokenType.INT, TokenType.EOF);
     tokenLiterals = List.of("let", "var", "=", "5", "EOF");
     for (int i = 0; i < tokenTypes.size(); i++) {
       actualToken = tokenizer.nextToken();
