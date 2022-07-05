@@ -42,7 +42,12 @@ public class Tokenizer {
     Token token;
     switch (curChar) {
       case '=':
-        token = new Token(TokenType.ASSIGN, String.valueOf(curChar));
+        if (peekChar() == '=') {
+          token = new Token(TokenType.EQ, curChar + String.valueOf(peekChar()));
+          readChar();
+        } else {
+          token = new Token(TokenType.ASSIGN, String.valueOf(curChar));
+        }
         break;
       case ';':
         token = new Token(TokenType.SEMICOLON, String.valueOf(curChar));
@@ -58,6 +63,29 @@ public class Tokenizer {
         break;
       case '+':
         token = new Token(TokenType.PLUS, String.valueOf(curChar));
+        break;
+      case '-':
+        token = new Token(TokenType.MINUS, String.valueOf(curChar));
+        break;
+      case '!':
+        if (peekChar() == '=') {
+          token = new Token(TokenType.NOT_EQ, curChar + String.valueOf(peekChar()));
+          readChar();
+        } else {
+          token = new Token(TokenType.BANG, String.valueOf(curChar));
+        }
+        break;
+      case '*':
+        token = new Token(TokenType.ASTERISK, String.valueOf(curChar));
+        break;
+      case '/':
+        token = new Token(TokenType.SLASH, String.valueOf(curChar));
+        break;
+      case '>':
+        token = new Token(TokenType.GT, String.valueOf(curChar));
+        break;
+      case '<':
+        token = new Token(TokenType.LT, String.valueOf(curChar));
         break;
       case '{':
         token = new Token(TokenType.LBRACE, String.valueOf(curChar));
@@ -106,7 +134,7 @@ public class Tokenizer {
   }
 
   private boolean isIdentifierChar(char c) {
-    return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_' || c >= '0' && c <= '9';
+    return isIdentifierBeginChar(c) || c >= '0' && c <= '9';
   }
 
   private boolean isDigit(char c) {
@@ -117,5 +145,9 @@ public class Tokenizer {
     while (curChar == ' ' || curChar == '\t' || curChar == '\n' || curChar == '\r') {
       readChar();
     }
+  }
+
+  private char peekChar() {
+    return readPosition >= input.length() ? 0 : input.charAt(readPosition);
   }
 }

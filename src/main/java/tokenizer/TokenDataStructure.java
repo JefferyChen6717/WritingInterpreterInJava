@@ -5,39 +5,60 @@ import java.util.Map;
 public class TokenDataStructure {
 
   public static Map<String, TokenType> keywords =
-      Map.of("fn", TokenType.FUNCTION, "let", TokenType.LET);
+      Map.of(
+          "fn",
+          TokenType.FUNCTION,
+          "let",
+          TokenType.LET,
+          "true",
+          TokenType.TURE,
+          "false",
+          TokenType.FUNCTION,
+          "if",
+          TokenType.IF,
+          "else",
+          TokenType.ELSE,
+          "return",
+          TokenType.RETURN);
 
   public static enum TokenType {
-    ILLEGAL("ILLEGAL"),
-    EOF("EOF"),
+    ILLEGAL,
+    EOF,
 
     // represent a identifier(variable)
-    ITENT("ITENT"),
-    INT("INT"),
+    ITENT,
+    INT,
 
-    // operators
-    ASSIGN("ASSIGN"),
-    PLUS("PLUS"),
+    // operators, '=', '+', '-', '!', '*', '/', '>', '<', '==', '!='
+    ASSIGN,
+    PLUS,
+    MINUS,
+    BANG,
+    ASTERISK,
+    SLASH,
+    GT,
+    LT,
+    EQ,
+    NOT_EQ,
 
-    // delimiters
-    COMMA("COMMA"),
-    SEMICOLON("SEMICOLON"),
+    // delimiters, ',', ';'
+    COMMA,
+    SEMICOLON,
 
     // '(', ')', '{', '}'
-    LPAREN("LPAREN"),
-    RPAREN("RPAREN"),
-    LBRACE("LBRACE"),
-    RBRACE("RBRACE"),
+    LPAREN,
+    RPAREN,
+    LBRACE,
+    RBRACE,
 
-    // keywords
-    FUNCTION("fn"),
-    LET("let");
-
-    private final String value;
-
-    TokenType(String value) {
-      this.value = value;
-    }
+    // keywords, 'fn', 'let'
+    FUNCTION,
+    LET,
+    TURE,
+    FALSE,
+    IF,
+    ELSE,
+    RETURN;
   }
 
   private TokenDataStructure() {}
