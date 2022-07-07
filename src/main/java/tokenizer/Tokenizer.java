@@ -6,14 +6,11 @@ import tokenizer.TokenDataStructure.TokenType;
 public class Tokenizer {
 
   String input;
-
   // index of current char
   int position;
-
   // index of the char next to the current char
   // readPosition = position + 1
   int readPosition;
-
   // current char
   char curChar;
 
