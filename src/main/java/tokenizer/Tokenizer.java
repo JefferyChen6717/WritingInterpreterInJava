@@ -111,7 +111,7 @@ public class Tokenizer {
 
   /** check ident is an identifier or a keyword and return corresponding TokenType */
   private TokenType lookupIdent(String ident) {
-    return TokenDataStructure.keywords.getOrDefault(ident, TokenType.ITENT);
+    return TokenDataStructure.keywords.getOrDefault(ident, TokenType.IDENT);
   }
 
   /**

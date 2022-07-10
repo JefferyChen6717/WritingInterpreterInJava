@@ -26,7 +26,7 @@ public class TokenDataStructure {
     EOF,
 
     // represent a identifier(variable)
-    ITENT,
+    IDENT,
     INT,
 
     // operators, '=', '+', '-', '!', '*', '/', '>', '<', '==', '!='
