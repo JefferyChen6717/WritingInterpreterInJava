@@ -2,6 +2,7 @@ package parser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 /** Program node is the root of every AST */
 public class ProgramNode implements Node {
@@ -18,5 +19,14 @@ public class ProgramNode implements Node {
   @Override
   public String tokenLiteral() {
     return this.statements.isEmpty() ? "" : statements.get(0).tokenLiteral();
+  }
+
+  @Override
+  public String toString() {
+    StringJoiner joiner = new StringJoiner("");
+    for (Statement statement : statements) {
+      joiner.add(statement.toString());
+    }
+    return joiner.toString();
   }
 }

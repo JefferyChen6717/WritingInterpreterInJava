@@ -21,7 +21,12 @@ public class Nodes {
 
     @Override
     public String tokenLiteral() {
-      return this.token.toString();
+      return this.value;
+    }
+
+    @Override
+    public String toString() {
+      return null;
     }
 
     @Override
@@ -47,6 +52,13 @@ public class Nodes {
     }
 
     @Override
+    public String toString() {
+      return String.format(
+          "%s %s = %s;",
+          this.token.literal, this.name.value, this.value == null ? "" : this.value.toString());
+    }
+
+    @Override
     public void statementNode() {}
   }
 
@@ -66,6 +78,41 @@ public class Nodes {
     @Override
     public String tokenLiteral() {
       return token.literal;
+    }
+
+    @Override
+    public String toString() {
+      return String.format("%s %s;", this.token.literal, this.returnValue.toString());
+    }
+
+    @Override
+    public void statementNode() {}
+  }
+
+  /** wrap expression into statement */
+  public static class ExpressionStatement implements Statement {
+    /** first token of the expression */
+    public Token token;
+    /** hold whole expression */
+    public Expression expression;
+
+    public ExpressionStatement(Token token) {
+      this.token = token;
+    }
+
+    public ExpressionStatement(Token token, Expression expression) {
+      this.token = token;
+      this.expression = expression;
+    }
+
+    @Override
+    public String tokenLiteral() {
+      return this.token.literal;
+    }
+
+    @Override
+    public String toString() {
+      return this.expression.toString();
     }
 
     @Override
