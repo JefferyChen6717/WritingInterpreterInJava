@@ -2,6 +2,7 @@ package parser;
 
 import tokenizer.Token;
 
+/** nodes in ast */
 public class Nodes {
   public static class Identifier implements Expression {
     /** the 'IDENT' token */
@@ -40,10 +41,19 @@ public class Nodes {
     public Identifier name;
     public Expression value;
 
-    public LetStatement() {}
-
-    public LetStatement(Token token) {
+    public LetStatement token(Token token) {
       this.token = token;
+      return this;
+    }
+
+    public LetStatement name(Identifier name) {
+      this.name = name;
+      return this;
+    }
+
+    public LetStatement value(Expression value) {
+      this.value = value;
+      return this;
     }
 
     @Override
@@ -66,13 +76,14 @@ public class Nodes {
     public Token token;
     public Expression returnValue;
 
-    public ReturnStatement(Token token) {
+    public ReturnStatement token(Token token) {
       this.token = token;
+      return this;
     }
 
-    public ReturnStatement(Token token, Expression returnValue) {
-      this.token = token;
+    public ReturnStatement expression(Expression returnValue) {
       this.returnValue = returnValue;
+      return this;
     }
 
     @Override
@@ -96,13 +107,14 @@ public class Nodes {
     /** hold whole expression */
     public Expression expression;
 
-    public ExpressionStatement(Token token) {
+    public ExpressionStatement token(Token token) {
       this.token = token;
+      return this;
     }
 
-    public ExpressionStatement(Token token, Expression expression) {
-      this.token = token;
+    public ExpressionStatement expression(Expression expression) {
       this.expression = expression;
+      return this;
     }
 
     @Override
@@ -117,5 +129,83 @@ public class Nodes {
 
     @Override
     public void statementNode() {}
+  }
+
+  public static class IntegerLiteral implements Expression {
+    private Token token;
+    private int value;
+
+    public IntegerLiteral token(Token token) {
+      this.token = token;
+      return this;
+    }
+
+    public IntegerLiteral value(int value) {
+      this.value = value;
+      return this;
+    }
+
+    public Token getToken() {
+      return this.token;
+    }
+
+    public int getValue() {
+      return this.value;
+    }
+
+    @Override
+    public void expressionNode() {}
+
+    @Override
+    public String tokenLiteral() {
+      return this.token.literal;
+    }
+  }
+
+  public static class PrefixExpression implements Expression {
+    private Token token;
+    private String operator;
+    private Expression right;
+
+    public PrefixExpression token(Token token) {
+      this.token = token;
+      return this;
+    }
+
+    public PrefixExpression operator(String operator) {
+      this.operator = operator;
+      return this;
+    }
+
+    public PrefixExpression right(Expression right) {
+      this.right = right;
+      return this;
+    }
+
+    public Token getToken() {
+      return this.token;
+    }
+
+    /** contains prefix operator, "!" or "-" */
+    public String getOperator() {
+      return this.operator;
+    }
+
+    public Expression getRight() {
+      return this.right;
+    }
+
+    @Override
+    public void expressionNode() {}
+
+    @Override
+    public String tokenLiteral() {
+      return this.token.literal;
+    }
+
+    @Override
+    public String toString() {
+      return String.format("(%s%s)", this.operator, this.right.toString());
+    }
   }
 }
